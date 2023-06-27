@@ -1,36 +1,69 @@
 // This is our main function
+const prompt = require('prompt-sync')();
+
+
+
+
 function fizzbuzz() {
-    console.log("Hello, World!");
 
-    // Put your code here...
-    // for(let i =1; i<100; i++){
-    //     let str = "";
-    //     if(i%3===0) str+="Fizz"
-    //
-    //     if(i%13===0) str+="Fezz"
-    //
-    //     if(i%5===0) str+="Buzz"
-    //
-    //     if(i%11===0)
-    //         str=""
-    //         if(i%13) str+="Fezz";
-    //         str+="Bong"
-    //     console.log(str === "" ? i : str)
-    // }
-    for(let i =1; i<100; i++){
-            let arr = "";
-            if(i%3===0) arr.push("Fizz");
+    //Enter your options
+    //Default, Max number, sequence, custom rules
+    let options = {1: "Default Run",
+    2: "Maximum Run",
+    3: "Custom Sequence",
+    4: "Custom Rules"}
+    console.log("Welcome to fizz buzz")
+    console.log("Here are your options \n 1. Default run \n 2. Maximum Number \n 3. Custom Sequence \n 4. Custom Rules")
+    let choice = Number(prompt("Enter you option:"))
+    while((0>=choice || choice >4) || isNaN(choice)){
+        choice = prompt("Enter a valid option: ")
+    }
 
-            if(i%13===0) str+="Fezz"
+    console.log("You have selected "+options[choice])
+    let input;
+    switch(choice){
+        case 1:
+            for(let i = 1; i< 100+1; i++)
+            run(i);
+            break;
+        case 2:
+            input = Number(prompt("Enter maximum number: "));
+            while(isNaN(input)) input = Number(prompt("Enter a valid number: "))
+            console.log("Your number is: " +input);
+            for(let i = 1; i< input+1; i++) run(i);
+            break;
+        case 3:
+            input = prompt("Enter your custom sequence (seperated by commas):").split(",")
 
-            if(i%5===0) str+="Buzz"
+            for(let num in input){
+                if(!(isNaN(Number(input[num])))) run(Number(input[num]));
+            }
+            break;
 
-            if(i%11===0)
-                str=""
-                if(i%13) str+="Fezz";
-                str+="Bong"
-            console.log(str === "" ? i : str)
+
+
+    }
+
+    function run(number){
+        let arr = [];
+        let str ="";
+        if(number%3===0) arr.push("Fizz");
+
+        if(number%13===0) arr.push("Fezz")
+        if(number%7===0) arr.push("Bang")
+        if(number%5===0) arr.push("Buzz")
+
+        if(number%11===0) {
+            arr = [];
+            if (number % 13===0) arr.push("Fezz");
+            arr.push("Bong")
         }
+        if(number%17===0) arr.reverse()
+
+        for(let x in arr) str+=arr[x];
+        console.log(str==="" ? number : str)
+        }
+
 }
 
 // Now, we run the main function:
